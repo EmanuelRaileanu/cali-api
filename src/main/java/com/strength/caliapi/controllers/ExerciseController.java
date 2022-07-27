@@ -40,7 +40,7 @@ public class ExerciseController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Object> deleteExercise(@PathVariable("id") long id) throws NotFoundException {
+    public ResponseEntity<Object> deleteExercise(@PathVariable("id") long id) {
         return this.exerciseService.deleteExercise(id);
     }
 }

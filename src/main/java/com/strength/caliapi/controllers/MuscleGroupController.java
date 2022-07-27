@@ -40,7 +40,7 @@ public class MuscleGroupController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Object> deleteMuscleGroup(@PathVariable("id") long id) throws NotFoundException {
+    public ResponseEntity<Object> deleteMuscleGroup(@PathVariable("id") long id) {
         return this.muscleGroupService.deleteMuscleGroup(id);
     }
 }
