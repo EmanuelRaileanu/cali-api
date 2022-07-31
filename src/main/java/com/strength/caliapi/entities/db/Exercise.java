@@ -1,10 +1,9 @@
 package com.strength.caliapi.entities.db;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +31,24 @@ public class Exercise extends BaseModel {
     @OneToMany(mappedBy = "exercise")
     private Set<ExerciseConfiguration> exerciseConfigurations;
 
-    public Exercise(LocalDateTime createdAt, LocalDateTime updatedAt, String name, String description, ExerciseDifficulty difficulty, Set<MuscleGroup> muscleGroups, Set<ExerciseConfiguration> exerciseConfigurations) {
+
+    public Exercise(long id, Timestamp createdAt, Timestamp updatedAt, String name, String description, ExerciseDifficulty difficulty, Set<MuscleGroup> muscleGroups) {
+        super(id, createdAt, updatedAt);
+        this.name = name;
+        this.description = description;
+        this.difficulty = difficulty;
+        this.muscleGroups = muscleGroups;
+    }
+    public Exercise(long id, Timestamp createdAt, Timestamp updatedAt, String name, String description, ExerciseDifficulty difficulty, Set<MuscleGroup> muscleGroups, Set<ExerciseConfiguration> exerciseConfigurations) {
+        super(id, createdAt, updatedAt);
+        this.name = name;
+        this.description = description;
+        this.difficulty = difficulty;
+        this.muscleGroups = muscleGroups;
+        this.exerciseConfigurations = exerciseConfigurations;
+    }
+
+    public Exercise(Timestamp createdAt, Timestamp updatedAt, String name, String description, ExerciseDifficulty difficulty, Set<MuscleGroup> muscleGroups, Set<ExerciseConfiguration> exerciseConfigurations) {
         super(createdAt, updatedAt);
         this.name = name;
         this.description = description;
@@ -41,7 +57,7 @@ public class Exercise extends BaseModel {
         this.exerciseConfigurations = exerciseConfigurations;
     }
 
-    public Exercise(LocalDateTime createdAt, LocalDateTime updatedAt, String name, ExerciseDifficulty difficulty, Set<MuscleGroup> muscleGroups) {
+    public Exercise(Timestamp createdAt, Timestamp updatedAt, String name, ExerciseDifficulty difficulty, Set<MuscleGroup> muscleGroups) {
         super(createdAt, updatedAt);
         this.name = name;
         this.difficulty = difficulty;
@@ -96,5 +112,15 @@ public class Exercise extends BaseModel {
 
     public void setExerciseConfigurations(Set<ExerciseConfiguration> exerciseConfigurations) {
         this.exerciseConfigurations = exerciseConfigurations;
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", difficulty=" + difficulty +
+                ", muscleGroups=" + muscleGroups +
+                '}';
     }
 }

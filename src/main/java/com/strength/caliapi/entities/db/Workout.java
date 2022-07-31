@@ -1,7 +1,7 @@
 package com.strength.caliapi.entities.db;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -16,12 +16,6 @@ public class Workout extends BaseModel {
             inverseJoinColumns = @JoinColumn(name = "exercise_configuration_id")
     )
     private Set<ExerciseConfiguration> exerciseConfigurations;
-
-    public Workout (LocalDateTime createdAt, LocalDateTime updatedAt, String name, Set<ExerciseConfiguration> exerciseConfigurations) {
-        super(createdAt, updatedAt);
-        this.name = name;
-        this.exerciseConfigurations = exerciseConfigurations;
-    }
 
     public Workout () {
 

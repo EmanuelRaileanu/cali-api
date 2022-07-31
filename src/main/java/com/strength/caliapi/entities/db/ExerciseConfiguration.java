@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -25,7 +25,7 @@ public class ExerciseConfiguration extends BaseModel {
     @ManyToMany(mappedBy = "exerciseConfigurations")
     private Set<Workout> workout;
 
-    public ExerciseConfiguration(LocalDateTime createdAt, LocalDateTime updatedAt, int numberOfRepetitions, int numberOfSets, int holdDurationInSeconds, Exercise exercise, Set<Workout> workout) {
+    public ExerciseConfiguration(Timestamp createdAt, Timestamp updatedAt, int numberOfRepetitions, int numberOfSets, int holdDurationInSeconds, Exercise exercise, Set<Workout> workout) {
         super(createdAt, updatedAt);
         this.numberOfRepetitions = numberOfRepetitions;
         this.numberOfSets = numberOfSets;

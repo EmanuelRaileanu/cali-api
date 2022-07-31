@@ -4,7 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class BaseModel {
@@ -14,13 +15,19 @@ public abstract class BaseModel {
 
     @Column(updatable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    private Timestamp updatedAt;
 
-    public BaseModel (LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BaseModel(long id, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public BaseModel (Timestamp createdAt, Timestamp updatedAt) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -29,11 +36,11 @@ public abstract class BaseModel {
 
     }
 
-    public LocalDateTime getCreatedAt () {
+    public Timestamp getCreatedAt () {
         return createdAt;
     }
 
-    public LocalDateTime getUpdatedAt () {
+    public Timestamp getUpdatedAt () {
         return updatedAt;
     }
 
@@ -43,5 +50,27 @@ public abstract class BaseModel {
 
     public void setId (long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseModel baseModel = (BaseModel) o;
+        return id == baseModel.id && createdAt.equals(baseModel.createdAt) && updatedAt.equals(baseModel.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, createdAt, updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        return "BaseModel{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

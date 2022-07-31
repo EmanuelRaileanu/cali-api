@@ -1,11 +1,9 @@
 package com.strength.caliapi.entities.db;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -18,7 +16,20 @@ public class MuscleGroup extends BaseModel {
     @JsonIgnoreProperties("muscleGroups")
     private Set<Exercise> exercises;
 
-    public MuscleGroup(LocalDateTime createdAt, LocalDateTime updatedAt, String name, String description, Set<Exercise> exercises) {
+
+    public MuscleGroup(long id, Timestamp createdAt, Timestamp updatedAt, String name, String description) {
+        super(id, createdAt, updatedAt);
+        this.name = name;
+        this.description = description;
+    }
+    public MuscleGroup(long id, Timestamp createdAt, Timestamp updatedAt, String name, String description, Set<Exercise> exercises) {
+        super(id, createdAt, updatedAt);
+        this.name = name;
+        this.description = description;
+        this.exercises = exercises;
+    }
+
+    public MuscleGroup(Timestamp createdAt, Timestamp updatedAt, String name, String description, Set<Exercise> exercises) {
         super(createdAt, updatedAt);
         this.name = name;
         this.description = description;
